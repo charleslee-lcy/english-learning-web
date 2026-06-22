@@ -17,6 +17,8 @@
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: #e74c3c; transition: width 0.3s ease; }
         .nav-links a:hover { color: #e74c3c; transform: translateY(-2px); }
         .nav-links a:hover::after { width: 100%; }
+        .login-btn { background: #e74c3c; color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; }
+        .login-btn:hover { background: #c0392b; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(231,76,60,0.4); }
 
         /* Hero 区域动画 */
         .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 80px 40px; text-align: center; color: white; position: relative; overflow: hidden; }
@@ -196,6 +198,7 @@
             <a href="#grammar">语法</a>
             <a href="#listen">听力</a>
             <a href="#about">关于</a>
+            <a href="login.html" class="login-btn">登录</a>
         </div>
     </nav>
     <section class="hero" id="home">
