@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日单词 - English Learning</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #f5f5f5; color: #333; }
+
+        nav { background: rgba(255,255,255,0.95); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { font-size: 24px; font-weight: bold; color: #e74c3c; }
+        .logo span { color: #333; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { display: inline-flex; align-items: center; text-decoration: none; color: #555; font-size: 16px; transition: all 0.3s ease; position: relative; line-height: 1; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px; background: #e74c3c; transition: width 0.3s ease; }
+        .nav-links a:hover { color: #e74c3c; transform: none; }
+        .nav-links a:hover::after { width: 100%; }
+        .login-btn { display: inline-flex; align-items: center; padding: 10px 28px; background: #e74c3c; color: white !important; text-decoration: none; border-radius: 30px; font-size: 15px; transition: all 0.3s ease; position: relative; overflow: hidden; white-space: nowrap; line-height: 1; }
+        .login-btn::after { display: none; }
+        .login-btn:hover { color: white !important; transform: none; box-shadow: 0 8px 15px rgba(231,76,60,0.3); }
+
+        .page-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 40px; text-align: center; color: white; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+
+        .words-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .words-table { width: 100%; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
+        .words-table table { width: 100%; border-collapse: collapse; }
+        .words-table th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 20px; text-align: left; font-size: 15px; }
+        .words-table td { padding: 14px 20px; border-bottom: 1px solid #f0f0f0; font-size: 15px; }
+        .words-table tr:last-child td { border-bottom: none; }
+        .words-table tr:hover td { background: #f8f9ff; }
+        .words-table .num { color: #999; width: 60px; }
+        .words-table .word { font-weight: 600; color: #333; }
+        .words-table .phonetic { color: #667eea; font-style: italic; }
+        .words-table .meaning { color: #555; }
+
+        .back-btn { display: inline-flex; align-items: center; gap: 8px; margin: 30px auto; padding: 12px 30px; background: #e74c3c; color: white; text-decoration: none; border-radius: 30px; font-size: 15px; transition: all 0.3s ease; }
+        .back-btn:hover { background: #c0392b; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(231,76,60,0.3); }
+        .btn-wrapper { text-align: center; padding: 10px 0 40px; }
+
+        footer { background: #333; color: white; padding: 40px 20px; text-align: center; }
+        footer p { opacity: 0.7; font-size: 14px; }
+        footer .footer-links { margin-top: 20px; }
+        footer .footer-links a { color: #ffd700; text-decoration: none; margin: 0 15px; transition: all 0.3s ease; }
+        footer .footer-links a:hover { color: #fff; transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            nav { padding: 12px 15px; flex-direction: column; gap: 10px; }
+            .logo { font-size: 20px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .nav-links a { font-size: 14px; }
+            .login-btn { padding: 8px 20px; font-size: 13px; }
+            .page-header { padding: 30px 20px; }
+            .page-header h1 { font-size: 24px; }
+            .words-container { padding: 0 10px; }
+            .words-table th, .words-table td { padding: 12px 10px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Learn<span>English</span></a>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="index.html#vocab">单词</a>
+            <a href="index.html#grammar">语法</a>
+            <a href="index.html#listen">听力</a>
+            <a href="index.html#about">关于</a>
+            <a href="login.html" class="login-btn">登录</a>
+        </div>
+    </nav>
+    <div class="page-header">
+        <h1>今日单词</h1>
+        <p>每天坚持学习，积少成多！</p>
+    </div>
+    <div class="words-container">
+        <div class="words-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>单词</th>
+                        <th>音标</th>
+                        <th>释义</th>
+                    </tr>
+                </thead>
+                <tbody id="wordList"></tbody>
+            </table>
+        </div>
+        <div class="btn-wrapper">
+            <a href="index.html" class="back-btn">← 返回首页</a>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 LearnEnglish - 英语学习平台</p>
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">帮助中心</a>
+            <a href="#">联系我们</a>
+            <a href="#">隐私政策</a>
+        </div>
+    </footer>
+    <script>
+        const words = [
+            { word: "Ambition", phonetic: "/æmˈbɪʃn/", meaning: "n. 雄心；野心" },
+            { word: "Gratitude", phonetic: "/ˈɡrætɪtjuːd/", meaning: "n. 感激；感谢" },
+            { word: "Resilience", phonetic: "/rɪˈzɪliəns/", meaning: "n. 韧性；恢复力" },
+            { word: "Eloquent", phonetic: "/ˈeləkwənt/", meaning: "adj. 雄辩的；有口才的" },
+            { word: "Benevolent", phonetic: "/bəˈnevələnt/", meaning: "adj. 仁慈的；慈善的" },
+            { word: "Catalyst", phonetic: "/ˈkætəlɪst/", meaning: "n. 催化剂；促进因素" },
+            { word: "Diligent", phonetic: "/ˈdɪlɪdʒənt/", meaning: "adj. 勤奋的；刻苦的" },
+            { word: "Ephemeral", phonetic: "/ɪˈfemərəl/", meaning: "adj. 短暂的；转瞬即逝的" },
+            { word: "Facetious", phonetic: "/fəˈsiːʃəs/", meaning: "adj. 滑稽的；不当地幽默的" },
+            { word: "Harmonious", phonetic: "/hɑːˈməʊniəs/", meaning: "adj. 和谐的；融洽的" },
+            { word: "Inevitable", phonetic: "/ɪnˈevɪtəbl/", meaning: "adj. 不可避免的" },
+            { word: "Jubilant", phonetic: "/ˈdʒuːbɪlənt/", meaning: "adj. 欢欣鼓舞的；喜气洋洋的" },
+            { word: "Kinetic", phonetic: "/kɪˈnetɪk/", meaning: "adj. 运动的；动态的" },
+            { word: "Lucrative", phonetic: "/ˈluːkrətɪv/", meaning: "adj. 获利丰厚的；赚钱的" },
+            { word: "Meticulous", phonetic: "/məˈtɪkjələs/", meaning: "adj. 一丝不苟的；细致的" },
+            { word: "Nostalgia", phonetic: "/nɒˈstældʒə/", meaning: "n. 怀旧；乡愁" },
+            { word: "Optimistic", phonetic: "/ˌɒptɪˈmɪstɪk/", meaning: "adj. 乐观的" },
+            { word: "Perseverance", phonetic: "/ˌpɜːsɪˈvɪərəns/", meaning: "n. 毅力；坚持不懈" },
+            { word: "Quintessential", phonetic: "/ˌkwɪntɪˈsenʃəl/", meaning: "adj. 典型的；精髓的" },
+            { word: "Resilient", phonetic: "/rɪˈzɪliənt/", meaning: "adj. 有弹性的；能恢复的" },
+            { word: "Serendipity", phonetic: "/ˌserənˈdɪpəti/", meaning: "n. 意外发现的好运" },
+            { word: "Tenacious", phonetic: "/tɪˈneɪʃəs/", meaning: "adj. 坚韧的；顽强的" },
+            { word: "Ubiquitous", phonetic: "/juːˈbɪkwɪtəs/", meaning: "adj. 无处不在的" },
+            { word: "Vivacious", phonetic: "/vɪˈveɪʃəs/", meaning: "adj. 活泼的；快活的" },
+            { word: "Wistful", phonetic: "/ˈwɪstfəl/", meaning: "adj. 渴望的；惆怅的" },
+            { word: "Zenith", phonetic: "/ˈzenɪθ/", meaning: "n. 顶点；巅峰" },
+            { word: "Aesthetic", phonetic: "/esˈθetɪk/", meaning: "adj. 审美的；美学的" },
+            { word: "Benevolent", phonetic: "/bəˈnevələnt/", meaning: "adj. 仁慈的；慈善的" },
+            { word: "Capricious", phonetic: "/kəˈprɪʃəs/", meaning: "adj. 反复无常的；任性的" },
+            { word: "Diligent", phonetic: "/ˈdɪlɪdʒənt/", meaning: "adj. 勤奋的；刻苦的" },
+            { word: "Enigmatic", phonetic: "/ˌenɪɡˈmætɪk/", meaning: "adj. 神秘的；不可思议的" },
+            { word: "Flourish", phonetic: "/ˈflʌrɪʃ/", meaning: "v. 繁荣；茂盛" },
+            { word: "Gregarious", phonetic: "/ɡrɪˈɡeəriəs/", meaning: "adj. 爱交际的；合群的" },
+            { word: "Hypnotic", phonetic: "/hɪpˈnɒtɪk/", meaning: "adj. 催眠的；令人着迷的" },
+            { word: "Iconic", phonetic: "/aɪˈkɒnɪk/", meaning: "adj. 标志性的；象征性的" },
+            { word: "Juxtapose", phonetic: "/ˌdʒʌkstəˈpəʊz/", meaning: "v. 并列；并置" },
+            { word: "Kindle", phonetic: "/ˈkɪndl/", meaning: "v. 点燃；激起" },
+            { word: "Luminous", phonetic: "/ˈluːmɪnəs/", meaning: "adj. 发光的；明亮的" },
+            { word: "Magnificent", phonetic: "/mæɡˈnɪfɪsnt/", meaning: "adj. 壮丽的；宏伟的" },
+            { word: "Nebulous", phonetic: "/ˈnebjələs/", meaning: "adj. 朦胧的；模糊的" },
+            { word: "Opulent", phonetic: "/ˈɒpjələnt/", meaning: "adj. 豪华的；富裕的" },
+            { word: "Pristine", phonetic: "/ˈprɪstiːn/", meaning: "adj. 崭新的；纯净的" },
+            { word: "Quintessence", phonetic: "/kwɪnˈtesns/", meaning: "n. 精华；典范" },
+            { word: "Renaissance", phonetic: "/ˌrenəˈsɑːns/", meaning: "n. 复兴；文艺复兴" },
+            { word: "Surreal", phonetic: "/səˈriːəl/", meaning: "adj. 超现实的；离奇的" },
+            { word: "Tranquil", phonetic: "/ˈtræŋkwɪl/", meaning: "adj. 宁静的；平静的" },
+            { word: "Euphoria", phonetic: "/juːˈfɔːriə/", meaning: "n. 兴奋；幸福感" },
+            { word: "Verdant", phonetic: "/ˈvɜːdnt/", meaning: "adj. 青翠的；翠绿的" },
+            { word: "Whimsical", phonetic: "/ˈwɪmzɪkl/", meaning: "adj. 异想天开的；古怪的" },
+            { word: "Yearn", phonetic: "/jɜːn/", meaning: "v. 渴望；向往" }
+        ];
+
+        const tbody = document.getElementById('wordList');
+        words.forEach((item, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="num">${index + 1}</td>
+                <td class="word">${item.word}</td>
+                <td class="phonetic">${item.phonetic}</td>
+                <td class="meaning">${item.meaning}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>
